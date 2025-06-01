@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pico Piano</title>
+  <style id="dynamic-style">
+    body {
+      background: #f0f0f0;
+      color: #000;
+      text-align: center;
+      font-family: sans-serif;
+      padding: 40px;
+    }
+    .key {
+      display: inline-block;
+      width: 80px;
+      height: 180px;
+      margin: 5px;
+      font-size: 18px;
+      background: white;
+      border: 2px solid black;
+      border-radius: 10px;
+      line-height: 180px;
+      cursor: pointer;
+      box-shadow: 2px 2px 5px gray;
+    }
+    .key:hover {
+      background: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎹 Pico Piano</h1>
+  <div id="keys">
+    <div class="key" onclick="play('C')">C</div>
+    <div class="key" onclick="play('D')">D</div>
+    <div class="key" onclick="play('E')">E</div>
+    <div class="key" onclick="play('F')">F</div>
+    <div class="key" onclick="play('G')">G</div>
+    <div class="key" onclick="play('A')">A</div>
+    <div class="key" onclick="play('B')">B</div>
+  </div>
+
+  <div id="manual" style="
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: orange;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  ">
+    Manual input
+  </div>
+
+  <script>
+    let manualShown = false;
+    
+    function play(note) {
+      fetch('/play?note=' + note)
+        .then(() => {
+          if (manualShown) {
+            document.getElementById('manual').style.display = 'none';
+            manualShown = false;
+          }
+        });
+    }
+
+    setInterval(() => {
+      fetch('/state')
+        .then(res => res.text())
+        .then(val => {
+          const style = document.getElementById('dynamic-style');
+          if (val.trim() === "1") {
+            style.innerHTML = `
+              body { background: #222; color: white; text-align: center; font-family: sans-serif; padding: 40px; }
+              .key {
+                background: #333; color: #fff; border: 2px solid #fff;
+              }
+              .key:hover { background: #444; }
+            `;
+          } else {
+            style.innerHTML = `
+              body { background: #f0f0f0; color: #000; text-align: center; font-family: sans-serif; padding: 40px; }
+              .key {
+                background: white; color: black; border: 2px solid black;
+              }
+              .key:hover { background: #e0e0e0; }
+            `;
+          }
+        });
+
+      
+      fetch('/manual')
+        .then(res => res.text())
+        .then(val => {
+          const flag = val.trim() === "1";
+          const box = document.getElementById('manual');
+          if (flag && !manualShown) {
+            box.style.display = 'block';
+            manualShown = true;
+          }
+        });
+    }, 500);
+  </script>
+</body>
+</html>
