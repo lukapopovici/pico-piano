@@ -1,21 +1,21 @@
-# 🎹 Pico Piano 
+#  Pico Piano 
 
 A fun and interactive way to get a piano interface using a Raspberry Pi Pico W! Play notes manually using a keypad or remotely through a web interface. It also features octave switching via an IR sensor and a lightweight embedded web server.
 
 ---
 
-## 🚀 Features
+##  Features
 
-- 🕹️ **Manual control** with a 3x3 keypad
-- 🌐 **Wi-Fi web interface** to play notes remotely
-- 👁️ **IR sensor** toggles between normal and lower octaves
-- 🎵 **Piezo buzzer** to produce musical notes
-- 🧠 **Simple HTTP server** for interactive control and state queries
-- 🌘 **Dark/Light theme** toggles in real-time via the IR sensor on the web UI
+-  **Manual control** with a 3x3 keypad
+- **Wi-Fi web interface** to play notes remotely
+-  **IR sensor** toggles between normal and lower octaves
+- **Piezo buzzer** to produce musical notes
+-  **Simple HTTP server** for interactive control and state queries
+-  **Dark/Light theme** toggles in real-time via the IR sensor on the web UI
 
 ---
 
-## 🧰 What You Need
+##  What You Need
 
 - Raspberry Pi Pico W
 - Passive Buzzer
@@ -27,7 +27,7 @@ A fun and interactive way to get a piano interface using a Raspberry Pi Pico W! 
 - Will to live
 ---
 
-## 🗂️ File Structure
+##  File Structure
 
 ```
 pico_piano/
@@ -41,15 +41,17 @@ pico_piano/
 
 ---
 ## Picture
-![image](https://github.com/user-attachments/assets/3243e09d-0c4c-42a8-bff6-c62575849bb6)
+![image](https://github.com/user-attachments/assets/f4db2ce2-6443-49ff-9082-093c1b8f15c3)
+
 
 
 ## Schematic
 
-![image](https://github.com/user-attachments/assets/9f90cfce-4608-496e-bf13-64f42ac4ecdb)
+![image](https://github.com/user-attachments/assets/e59613c2-884b-4cb6-badc-9ba0fcf73263)
 
 
-## 🛠️ Setup Instructions
+
+##  Setup Instructions
 
 1. **Connect the components:**
    - Buzzer → GPIO15
@@ -74,7 +76,7 @@ pico_piano/
 
 ---
 
-## 🌐 Web Interface
+##  Web Interface
 
 - Access the piano remotely by entering your Pico’s IP address (displayed in the serial console).
 - Play notes via links like:  
@@ -84,11 +86,14 @@ pico_piano/
 - Detect last input method (manual/remote):  
   `http://<ip_address>/manual`
 
+![image](https://github.com/user-attachments/assets/98375cd3-14b8-4505-89f7-96ce0b15b687)
+
+
 > The web UI (in `static/index.html`) will automatically switch themes based on IR sensor state.
 
 ---
 
-## 📄 Example Output
+##  Example Output
 
 ```bash
 Connecting to Wi-Fi...
@@ -99,7 +104,7 @@ IR sensor toggled: HIGH (object detected)
 ```
 
 
-## 🧠 How It Works
+##  How It Works
 
 - **Keypad scanning** runs in a loop using GPIO pin reads.
 - **IR sensor** dynamically switches between two frequency maps (`notes_normal` and `notes_lower`).
